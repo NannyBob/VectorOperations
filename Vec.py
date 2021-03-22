@@ -3,6 +3,12 @@ class Vector:
     def __init__(self, *args):
         self.values = args
 
+    def __iter__(self):
+        return self.values.__iter__()
+
+    def __len__(self):
+        return len(self.values)
+
     def __getitem__(self, key):
         return self.values[key]
 
@@ -33,8 +39,9 @@ class Vector:
         new_vals =[]
         if isinstance(other, (int, float)):
             new_vals = [i * other for i in self]
+        return new_vals
 
-    def __divmod__(self, other):
+
 
     def __neg__(self):
         return self * -1
@@ -44,3 +51,12 @@ class Vector:
 
     def __str__(self):
         return self.values.__str__()
+
+    @staticmethod
+    def scalar_product(xA,y) -> float:
+        if not len(x) == len(y):
+            raise IndexError("Vectors should have the same number of dimensions")
+        to_return =0
+        for a,b in zip(x,y):
+            to_return += a*b
+        return to_return
