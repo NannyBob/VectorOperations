@@ -1,3 +1,6 @@
+import math
+
+
 class Vector:
 
     def __init__(self, *args):
@@ -36,12 +39,10 @@ class Vector:
         return Vector(new_vals)
 
     def __mul__(self, other):
-        new_vals =[]
+        new_vals = []
         if isinstance(other, (int, float)):
             new_vals = [i * other for i in self]
         return new_vals
-
-
 
     def __neg__(self):
         return self * -1
@@ -53,10 +54,16 @@ class Vector:
         return self.values.__str__()
 
     @staticmethod
-    def scalar_product(xA,y) -> float:
+    def scalar_product(x, y) -> float:
         if not len(x) == len(y):
             raise IndexError("Vectors should have the same number of dimensions")
-        to_return =0
-        for a,b in zip(x,y):
-            to_return += a*b
+        to_return = 0
+        for a, b in zip(x, y):
+            to_return += a * b
         return to_return
+
+    def length(self):
+        total =0
+        for i in self:
+            total+= pow(i,2)
+        return math.sqrt(total)
