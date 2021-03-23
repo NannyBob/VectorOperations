@@ -10,7 +10,7 @@ class Vector:
         return self.values.__iter__()
 
     def __len__(self):
-        return len(self.values)
+        return self.length()
 
     def __getitem__(self, key):
         return self.values[key]
@@ -53,9 +53,12 @@ class Vector:
     def __str__(self):
         return self.values.__str__()
 
+    def dimensions(self):
+        return len(self.values)
+
     @staticmethod
     def scalar_product(x, y) -> float:
-        if not len(x) == len(y):
+        if not x.dimensions() == y.dimensions():
             raise IndexError("Vectors should have the same number of dimensions")
         to_return = 0
         for a, b in zip(x, y):
@@ -63,7 +66,17 @@ class Vector:
         return to_return
 
     def length(self):
-        total =0
+        total = 0
         for i in self:
-            total+= pow(i,2)
+            total += pow(i, 2)
         return math.sqrt(total)
+
+    @staticmethod
+    def angle2D(x, y, radians: bool):
+        if x.dimensions() < 2 or y.dimensions() < 2:
+            raise IndexError("Vectors should have at least 2 dimensions")
+        rads = math.acos(Vector.scalar_product(x, y) / x.length() * y.length())
+        if radians:
+            return rads
+        return rads * 180 / math.pi
+
